@@ -4,7 +4,6 @@ import 'package:todoey_flutter/screens/add_task_screen.dart';
 import 'package:todoey_flutter/widgets/task_list.dart';
 
 class TaskScreen extends StatelessWidget {
-
   List<String> tasks = [
     'Mow grass',
     'Water plants',
@@ -17,10 +16,10 @@ class TaskScreen extends StatelessWidget {
     List<Widget> taskWidgets = [];
     for (String task in tasks) {
       Widget taskWidget = Text(
-          task,
-          style: TextStyle(
-            fontSize: 80.0,
-          ),
+        task,
+        style: TextStyle(
+          fontSize: 80.0,
+        ),
       );
       taskWidgets.add(taskWidget);
     }
@@ -43,7 +42,16 @@ class TaskScreen extends StatelessWidget {
       backgroundColor: Colors.lightBlueAccent,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showModalBottomSheet(context: context, builder: (context) => AddTaskScreen(),);
+          showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            builder: (context) => SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                child: AddTaskScreen(),
+              ),
+            ),
+          );
         },
         backgroundColor: Colors.lightBlueAccent,
         child: Icon(Icons.add),
@@ -109,6 +117,3 @@ class TaskScreen extends StatelessWidget {
     );
   }
 }
-
-
-
