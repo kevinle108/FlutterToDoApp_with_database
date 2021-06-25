@@ -4,42 +4,17 @@ import 'package:todoey_flutter/models/task.dart';
 import 'package:todoey_flutter/screens/add_task_screen.dart';
 import 'package:todoey_flutter/widgets/task_list.dart';
 
-class TaskScreen extends StatelessWidget {
+class TaskScreen extends StatefulWidget {
+  @override
+  State<TaskScreen> createState() => _TaskScreenState();
+}
+
+class _TaskScreenState extends State<TaskScreen> {
   List<Task> tasks = [
-    Task(
-      name: 'Task1',
-    ),
-    Task(
-      name: 'Task2',
-    ),
-    Task(
-      name: 'Task3',
-    ),
+    Task(name: 'Task1'),
+    Task(name: 'Task2'),
+    Task(name: 'Task3'),
   ];
-
-  List<Widget> toDoList() {
-    List<Widget> taskWidgets = [];
-    for (Task task in tasks) {
-      Widget taskWidget = Text(
-        task.name,
-        style: TextStyle(
-          fontSize: 80.0,
-        ),
-      );
-      taskWidgets.add(taskWidget);
-    }
-    return taskWidgets;
-  }
-
-  // Widget buildBottomSheet(BuildContext context) {
-  //   return Container(
-  //     child: Center(
-  //       child: Text(
-  //           'This is a bottom sheet',
-  //       ),
-  //     ),
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +27,8 @@ class TaskScreen extends StatelessWidget {
             isScrollControlled: true,
             builder: (context) => SingleChildScrollView(
               child: Container(
-                padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
                 child: AddTaskScreen(),
               ),
             ),
@@ -114,7 +90,7 @@ class TaskScreen extends StatelessWidget {
                   topRight: Radius.circular(20.0),
                 ),
               ),
-              child: TaskList(),
+              child: TaskList(tasks),
             ),
           ),
         ],
