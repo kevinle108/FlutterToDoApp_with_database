@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:todoey_flutter/models/task.dart';
 import 'task_tile.dart';
 
-class TaskList extends StatelessWidget {
+class TaskList extends StatefulWidget {
+  @override
+  State<TaskList> createState() => _TaskListState();
+}
+
+class _TaskListState extends State<TaskList> {
   List<Task> tasks = [
     Task(
       name: 'Task1',
@@ -14,7 +19,6 @@ class TaskList extends StatelessWidget {
       name: 'Task3',
     ),
   ];
-
 
 
   @override
