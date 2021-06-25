@@ -1,22 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:todoey_flutter/models/task.dart';
 import 'package:todoey_flutter/screens/add_task_screen.dart';
 import 'package:todoey_flutter/widgets/task_list.dart';
 
 class TaskScreen extends StatelessWidget {
-  List<String> tasks = [
-    'Mow grass',
-    'Water plants',
-    'Fix car',
-    'Babysit',
-    'Go shopping',
+  List<Task> tasks = [
+    Task(
+      name: 'Task1',
+    ),
+    Task(
+      name: 'Task2',
+    ),
+    Task(
+      name: 'Task3',
+    ),
   ];
 
   List<Widget> toDoList() {
     List<Widget> taskWidgets = [];
-    for (String task in tasks) {
+    for (Task task in tasks) {
       Widget taskWidget = Text(
-        task,
+        task.name,
         style: TextStyle(
           fontSize: 80.0,
         ),
