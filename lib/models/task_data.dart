@@ -6,12 +6,13 @@ import 'package:todoey_flutter/db_helper.dart';
 import 'package:todoey_flutter/models/task.dart';
 
 class TaskData extends ChangeNotifier {
-  //todo get tasks from db instead of hardcoding
   List<Task> _tasks = [];
 
-  int nextId = 1;
-
   int get taskCount => _tasks.length;
+
+  TaskData(){
+    getAllTasksFromDB();
+  }
 
   UnmodifiableListView<Task> get tasks => UnmodifiableListView(_tasks);
 
@@ -19,34 +20,28 @@ class TaskData extends ChangeNotifier {
     List<Task> tasks = await DbHelper.getAllTasks();
     print('Done retrieving ${tasks.length} tasks from database');
     _tasks = tasks;
+    notifyListeners();
   }
 
-  // void updateIdTracker() {
-  //   if (_tasks.length == 0) nextId = 1;
-  //   else {
-  //     tasks.sort((a, b) => (a.id).compareTo(b.id));
-  //     nextId = _tasks.last.id;
-  //   }
-  // }
 
-  void addTask(String newTaskTitle) {
+  void addTask(String newTaskTitle) async {
     // Task newTask = Task(taskName: newTaskTitle, id: Random().nextInt(999), isDone: false);
-    Task newTask = Task(taskName: newTaskTitle, id: _tasks.length+1, isDone: false);
+    Task newTask = Task(taskName: newTaskTitle, id: 0, isDone: false);
+    newTask.id = await DbHelper.insertTask((newTask));
     _tasks.add(newTask);
     print('Created new task, taskName:${newTask.taskName}, id:${newTask.id}, isDone:${newTask.isDone}');
-    DbHelper.insertTask(newTask);
     notifyListeners();
   }
 
-  void updateTask(Task task) {
+  void updateTask(Task task) async {
     task.toggleDone();
-    DbHelper.updateTask(task);
+    await DbHelper.updateTask(task);
     notifyListeners();
   }
 
-  void deleteTask(Task task) {
+  void deleteTask(Task task) async {
+    await DbHelper.deleteTask(task.id);
     _tasks.remove(task);
-    DbHelper.deleteTask(task.id);
     notifyListeners();
   }
 }

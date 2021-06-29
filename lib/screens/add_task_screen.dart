@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todoey_flutter/models/task_data.dart';
 
-class AddTaskScreen extends StatelessWidget {
-  String newTaskTitle = '';
-  final void Function(String?) addTaskCallback;
+String newTaskTitle = '';
 
-  AddTaskScreen({required this.addTaskCallback});
+class AddTaskScreen extends StatelessWidget {
+
+  //final void Function(String?) addTaskCallback;
+
+  //AddTaskScreen({required this.addTaskCallback});
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +40,10 @@ class AddTaskScreen extends StatelessWidget {
             TextField(
               autofocus: true,
               textAlign: TextAlign.center,
+              onSubmitted: (value) {
+                Provider.of<TaskData>(context, listen: false).addTask(newTaskTitle);
+                Navigator.pop(context);
+              },
               onChanged: (value) {
                 newTaskTitle = value;
               },

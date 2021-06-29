@@ -22,12 +22,10 @@ class DbHelper {
     return _db!;
   }
 
-  static Future<Task> insertTask(Task task) async {
+  static Future<int> insertTask(Task task) async {
     Database db = await _getDb();
-    task.id = await db.insert(kTableTasks, task.toMap(),
+    return await db.insert(kTableTasks, task.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
-    print('inserted a task to db: taskName: ${task.taskName}');
-    return task;
   }
 
   static Future<int> deleteTask(int id) async {
