@@ -26,16 +26,19 @@ class DbHelper {
     Database db = await _getDb();
     task.id = await db.insert(kTableTasks, task.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
+    print('inserted a task to db: taskName: ${task.taskName}');
     return task;
   }
 
   static Future<int> deleteTask(int id) async {
     Database db = await _getDb();
+    print('removed a task from db: taskID: ${id}');
     return await db.delete(kTableTasks, where: 'id = ?', whereArgs: [id]);
   }
 
   static Future<int> updateTask(Task task) async {
     Database db = await _getDb();
+    print('updated task to db: taskName: ${task.taskName}');
     return await db.update(kTableTasks, task.toMap(),
         where: 'id = ?', whereArgs: [task.id]);
   }

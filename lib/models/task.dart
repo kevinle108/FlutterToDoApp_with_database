@@ -1,8 +1,8 @@
 class Task {
-  final String taskName;
+  String taskName;
   bool isDone = false;
-  late final int id;
-  int idTracker = 0;
+  int id;
+
 
   Task({required this.taskName, required this.id, required this.isDone});
 
